@@ -2,12 +2,15 @@ from svmutil import *
 import sys
 
 FILE_TO_PROCESS_1 = sys.argv[1]
+TEST_FILE = sys.argv[2]
+
 #FILE_TO_PROCESS_2 = sys.argv[2]
-FILE_LIBSVM_FORMAT = sys.argv[2]
-SECOND_FILE = sys.argv[3]
+TRAINFILE_LIBSVM_FORMAT = "LIBSVM_FORMAT_TRAIN"
+TESTFILE_LIBSVM_FORMAT = "LIBSVM_FORMAT_TEST"
 
 lines = []
 
+# Method to create the LIB SVM format file from the given dataset
 def createLibSVMFile(outFp):
     global lines
     lineNumber = 0
@@ -30,41 +33,28 @@ def createLibSVMFile(outFp):
             i = i + 1
         outFp.write(outLine)
         outFp.write("\n")
-    
-outFp = open(FILE_LIBSVM_FORMAT,"w")
+   
+ 
 
 with open(FILE_TO_PROCESS_1) as f:
     lines = f.readlines()
 f.close()
 
+outFp = open(TRAINFILE_LIBSVM_FORMAT,"w")
 createLibSVMFile(outFp);
 
-"""
-with open(FILE_TO_PROCESS_1) as f:
+with open(TEST_FILE) as f:
     lines = f.readlines()
 f.close()
 
-createLibSVMFile(outFp);
-"""
-f.close()
-
-#outFp.write("Occupancy Temperature Humidity Light CO2 HumidityRatio")
-#outFp.write("\n")
-#print lines[0].rstrip('\n').rstrip('\r').split(",")
-
-
-with open(SECOND_FILE) as f:
-    lines = f.readlines()
-f.close()
-
-outFp2 = open("temp2", "w")
+outFp2 = open(TESTFILE_LIBSVM_FORMAT, "w")
 createLibSVMFile(outFp2)
 
-y, x = svm_read_problem(FILE_LIBSVM_FORMAT)
-#m = svm_train(y, x, '-t 0 -c 4 -b 1')
-m = svm_train(y, x, '-s 4 -c 4')
+y, x = svm_read_problem(TRAINFILE_LIBSVM_FORMAT)
+m = svm_train(y, x, '-t 0 -c 4 -b 1')
+#m = svm_train(y, x, '-s 0 -c 4')
 
-p,q = svm_read_problem("temp2")
+p,q = svm_read_problem(TESTFILE_LIBSVM_FORMAT)
 
 p_label, p_acc, p_val = svm_predict(p, q, m)
 
