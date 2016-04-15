@@ -1,0 +1,31 @@
+File Info:
+assn4_to_submit.py
+
+This program generates the predicting model from three datatests (provided as argument to the program) and
+then test the model on testing data "test.csv" and generates the corresponding "result.csv" 
+
+Libraries/Dependencies:
+
+1. libSvm        -  To generate SVM model
+2. scikit-learn  -  To normalize the data set.
+
+Libsvm:
+  Download the tar.gz of LIBSVM from the link
+  https://www.csie.ntu.edu.tw/~cjlin/libsvm/#download
+
+  Untar the libsvm package and place our code in the directory libsvm-3.21/python
+
+How to install sklearn?
+Scikit-learn requires:
+    Python (>= 2.6 or >= 3.3),
+    NumPy (>= 1.6.1),
+    SciPy (>= 0.9).
+
+Execution steps:
+python assn4_to_submit.py <datatest1.csv> <datatest2.csv> <datatest3.csv> <test.csv> <result.csv>
+
+
+
+
+
+
